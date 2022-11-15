@@ -27,7 +27,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script> 
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
 
     <!-------------------------------------------->
@@ -47,32 +47,29 @@
     <nav id="navbarPlaceholder"></nav>
 
     <!-- the body of your page goes here -->
-
+    <!-- stuff -->
     <div class="container">
-        <h1>User Profile </h1>
-        <form>
-            <fieldset class="mb-3" id="personalInfoFields" disabled>
-                <div class="form-group">
-                    <label >Name</label>
-                    <input type="text" id="nameInput" class="form-control" placeholder="Enter your name">
-                </div>
-                <div class="form-group">
-                    <label >School</label>
-                    <input type="text" id="schoolInput" class="form-control" placeholder="Enter your school">
-                </div>
-                <div class="form-group">
-                    <label >City</label>
-                    <input type="text" id="cityInput" class="form-control" placeholder="Enter your city">
-                </div>
-            </fieldset>
-            <div class="d-flex justify-content-end mt-5">
-                <button type="button" class="btn btn-secondary" onclick="editUserInfo()">Edit</button>
-                <span style="width: 10px"></span>
-                <button type="button" class="btn btn-info" onclick="saveUserInfo()">Save</button>
+        <h2>Reviews for <span id="FeatureName"> this feature</span></h2>
+        <div id="details-go-here"></div>
+        <!-- Container of cards -->
+        <div class="container">
+            <div id="cardGroup" class="row row-cols-auto">
             </div>
-        </form>
-</div>
+        </div>
+    </div>
 
+    <template id="cardTemplate">
+        <div class="card">
+            <img class="card-img-top">
+            <div class="card-body">
+                <h5 class="title">placeholder</h5>
+                <p class="usability">placeholder</p>
+                <p class="recommend">placeholder</p>
+                <br/>
+                <p class="description">placeholder</p>
+            </div>
+        </div>
+    </template>
     <!-- our own footer goes here-->
     <nav id="footerPlaceholder"></nav>
 
@@ -81,7 +78,8 @@
     <!---------------------------------------------->
     <script src="./scripts/firebaseAPI_TEAM99.js"></script>
     <script src="./scripts/skeleton.js"></script>
-    <script src="./scripts/profile.js"></script>
+    <script src="./scripts/script.js"></script>
+    <script src="./scripts/eachFeature.js"></script>
 
 </body>
 

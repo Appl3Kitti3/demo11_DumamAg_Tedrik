@@ -1,59 +1,61 @@
-let hikeID = localStorage.getItem("hikeID");
+let featureID = localStorage.getItem("featureID");
 
-//get the name of the hike
-db.collection("hikes")
-  .where("code", "==", hikeID)
-  .get()
-  .then((hikeResult) => {
-    size = hikeResult.size;
-    Hikes = hikeResult.docs;
+db.collection("features").where("code", "==", featureID)
+            .get()
+            .then(queryFeature => {
+                //see how many results you have got from the query
+                size = queryFeature.size;
+                // get the documents of query
+                Features = queryFeature.docs;
 
-    if ((size = 1)) {
-      let thisHike = Hikes[0].data();
-      hikeName = thisHike.name;
-      document.getElementById("HikeName").innerHTML = hikeName;
-    } else {
-      console.log("query has more than one result");
-    }
-  });
+                // We want to have one document per hike, so if the the result of 
+                //the query is more than one, we can check it right now and clean the DB if needed.
+                if (size = 1) {
+                    var thisFeature = Features[0].data();
+                    name = thisFeature.name;
+                    document.getElementById("FeatureName").innerHTML = name;
+                } else {
+                    console.log("Query has more than one data")
+                }
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+
 
 function writeReview() {
-  console.log("in");
-  let Title = document.getElementById("title").value;
-  let Level = document.getElementById("level").value;
-  let Season = document.getElementById("season").value;
-  let Description = document.getElementById("description").value;
-  let Flooded = document.querySelector('input[name="flooded"]:checked').value;
-  let Scrambled = document.querySelector(
-    'input[name="scrambled"]:checked'
-  ).value;
-  console.log(Title, Level, Season, Description, Flooded, Scrambled);
+    console.log("in");
+    let Title = document.getElementById("title").value;
+    let Description = document.getElementById("description").value;
+    let Usability = document.querySelector('input[name="usability"]:checked').value;
+    let Recommend = document.querySelector('input[name="recommend"]:checked').value;
+    console.log(Title, Description, Usability, Recommend);
 
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      var currentUser = db.collection("users").doc(user.uid);
-      var userID = user.uid;
-      //get the document for current user.
-      currentUser.get().then((userDoc) => {
-        var userEmail = userDoc.data().email;
-        db.collection("Reviews")
-          .add({
-            code: hikeID,
-            userID: userID,
-            title: Title,
-            level: Level,
-            season: Season,
-            description: Description,
-            flooded: Flooded,
-            scrambled: Scrambled,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          })
-          .then(() => {
-            window.location.href = "thanks.html"; //new line added
-          });
-      });
-    } else {
-      // No user is signed in.
-    }
-  });
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            var currentUser = db.collection("users").doc(user.uid)
+            var userID = user.uid;
+            //get the document for current user.
+            console.log("Failure");
+            currentUser.get()
+                .then(userDoc => {
+                    var userEmail = userDoc.data().email;
+                    db.collection("Reviews").add({
+                        code: featureID,
+                        userID: userID,
+                        title: Title,
+                        description: Description,
+                        easyToUse: Usability,
+                        doesRecommend: Recommend,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    }).then(()=>{
+                        window.location.href = "thanks.html"; //new line added
+                    })
+                })
+                   
+        } else {
+            // No user is signed in.
+        }
+    });
+
 }

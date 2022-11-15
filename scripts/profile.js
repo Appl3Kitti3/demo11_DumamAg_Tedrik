@@ -1,47 +1,41 @@
-var currentUser;
+var currentUser          //put this right after you start script tag before writing any functions.
+// var variable is for outside block statements
+// let is inside block statements
 
+function populateInfo() {
+    firebase.auth().onAuthStateChanged(user => {
+        // Check if user is signed in:
+        if (user) {
 
-// I want to get the user information from the database and put them in the form
-function populateInfo ()
-{
-    firebase.auth().onAuthStateChanged( user =>
-    {
-        if ( user )
-        {
-            // go and get the curret user info from firestore
-            currentUser = db.collection( "users" ).doc( user.uid );
-
+            //go to the correct user document by referencing to the user uid
+            currentUser = db.collection("users").doc(user.uid)
+            //get the document for current user.
             currentUser.get()
-                .then( userDoc =>
-                {
-                    let userName = userDoc.data().name;
-                    let userSchool = userDoc.data().school;
-                    let userCity = userDoc.data().city;
+                .then(userDoc => {
+                    //get the data fields of the user
+                    var userName = userDoc.data().name;
+                    var userSchool = userDoc.data().school;
+                    var userCity = userDoc.data().city;
 
-                    if ( userName != null )
-                    {
-                        document.getElementById( "nameInput" ).value = userName;
+                    //if the data fields are not empty, then write them in to the form.
+                    if (userName != null) {
+                        document.getElementById("nameInput").value = userName;
                     }
-                    if ( userSchool != null )
-                    {
-                        document.getElementById( "schoolInput" ).value = userSchool;
+                    if (userSchool != null) {
+                        document.getElementById("schoolInput").value = userSchool;
                     }
-                    if ( userCity != null )
-                    { 
-                        console.log(userCity)
-                        document.getElementById( "cityInput" ).value = userCity;
+                    if (userCity != null) {
+                        document.getElementById("cityInput").value = userCity;
                     }
-                } )
-
-        } else
-        {
-            console.log( "no user is logged in" )
+                })
+        } else {
+            // No user is signed in.
+            console.log ("No user is signed in");
         }
-    }
-
-    )
-
+    });
 }
+
+//call the function to run it 
 populateInfo();
 
 function editUserInfo() {
@@ -49,7 +43,7 @@ function editUserInfo() {
     document.getElementById('personalInfoFields').disabled = false;
  }
 
- function saveUserInfo() {
+function saveUserInfo() {
     userName = document.getElementById('nameInput').value;
     userSchool = document.getElementById('schoolInput').value;
     userCity = document.getElementById('cityInput').value;
@@ -58,9 +52,8 @@ function editUserInfo() {
         name: userName,
         school: userSchool,
         city: userCity
-    })
-    .then(() => {
-        console.log("Document successfully updated!");
+    }).then(() => {
+        console.log("Document is updated!");
     })
 
     document.getElementById('personalInfoFields').disabled = true;
