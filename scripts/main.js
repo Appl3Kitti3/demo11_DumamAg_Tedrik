@@ -40,7 +40,11 @@ function insertName() {
         //get the user name
         var user_Name = userDoc.data().name;
         console.log(user_Name);
-        $("#name-goes-here").text(user_Name); //jquery
+        if (user_Name=="Terminal") {
+          $("#name-goes-here").text("Operator");
+        } else {
+          $("#name-goes-here").text(user_Name); //jquery
+        }
         // document.getElementByID("name-goes-here").innetText=user_Name;
       })
 }

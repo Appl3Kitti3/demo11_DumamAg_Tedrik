@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
 /*-------------------------------------
  * customize material design icon sizes 
  *-------------------------------------
@@ -12,4 +12,30 @@
 
 .material-icons{
     cursor: pointer;
+}
+
+#specificallyContainer {
+    text-align: center;
+}
+
+.bg-info {
+    background-color: #D3EEFA !important;
+}
+
+.navbar-light .navbar-brand {
+    color: #46C1E3;
+}
+.navbar-brand, .navbar-nav {
+    font-family: 'Bree Serif', serif !important;
+}
+body {
+    background-color: white !important;
+}
+img {
+    color:#040404;
+}
+
+.btn-primary {
+    /* color: #46C1E3; */
+    background-color: #4F35F2;
 }
