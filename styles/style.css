@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
 
 /*-------------------------------------
  * customize material design icon sizes 
@@ -32,11 +32,13 @@
 body {
     background-color: white;
 }
-img {
-    color:#040404;
+
+.btn {
+    color: white;
+    background-color: #4F35F2;
 }
 
-.btn-primary {
-    /* color: #46C1E3; */
-    background-color: #4F35F2;
+.btn-info {
+    color: white;
+    background-color: #0BA4DC;
 }
